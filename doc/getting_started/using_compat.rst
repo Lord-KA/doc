@@ -7,6 +7,7 @@ as ``tarantool.compat`` or ``compat``. It lists all compatibility options
 controlled by compat:
 
 .. code-block:: tarantoolsession
+
         tarantool> compat
         ---
         - json_escape_forward_slash:
@@ -27,26 +28,27 @@ controlled by compat:
 
 #. To change options you can do it directly:
 
-.. code-block:: tarantoolsession
+   .. code-block:: tarantoolsession
+
         tarantool> compat.json_escape_forward_slash = 'old'
         ---
         ...
 
-or pass a list of such options
+   or pass a list of such options
 
+   .. code-block:: tarantoolsession
 
-.. code-block:: tarantoolsession
         tarantool> compat{json_escape_forward_slash = 'old', option_2 = false}
         ---
         ...
 
-all options can be set as 'old'/'new' according to such values in table or directly
-true/false.
+   all options can be set as 'old'/'new' according to such values in table or directly
+   true/false.
 
 #. You can check if a specific option has been set correctly:
 
+   .. code-block:: tarantoolsession
 
-.. code-block:: tarantoolsession
         tarantool> compat.json_escape_forward_slash
         ---
         - value: true
@@ -57,9 +59,10 @@ true/false.
           default: true
         ...
 
-or list all options:
+   or list all options:
 
-.. code-block:: tarantoolsession
+   .. code-block:: tarantoolsession
+
         tarantool> compat
         ---
         - json_escape_forward_slash:
@@ -78,10 +81,10 @@ or list all options:
             default: true
         ...
 
-
 #. You can set a specific option to default:
 
-.. code-block:: tarantoolsession
+   .. code-block:: tarantoolsession
+
         tarantool> compat.restore({'option_2'})
         ---
         ...
@@ -96,16 +99,18 @@ or list all options:
           default: true
         ...
 
-or restore default for every option:
+   or restore default for every option:
 
-.. code-block:: tarantoolsession
+   .. code-block:: tarantoolsession
+
         tarantool> compat.reset()
         ---
         ...
 
 #. To list all unselected options, run:
 
-.. code-block:: tarantoolsession
+   .. code-block:: tarantoolsession
+
         tarantool> compat.candidates()
         ---
         - json_escape_forward_slash:
@@ -126,7 +131,8 @@ or restore default for every option:
 
 #. To get a command that can set up compat with the same options as current, run:
 
-.. code-block:: tarantoolsession
+   .. code-block:: tarantoolsession
+
         tarantool> compat{json_escape_forward_slash = 'new', option_2 = 'new'}
         ---
         ...
