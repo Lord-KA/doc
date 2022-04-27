@@ -42,7 +42,7 @@ controlled by compat:
         ---
         ...
 
-   all options can be set as 'old'/'new' according to such values in table or directly
+   all options can be set as 'old'/'new' according to such values in the table or directly
    true/false.
 
 #. You can check if a specific option has been set correctly:
@@ -142,3 +142,38 @@ controlled by compat:
         - require('tarantool').compat({json_escape_forward_slash = false, option_2 = true})
         ...
 
+#. You can also add options during runtime with add_options that requires list
+   of tables with the following:
+    - name (string)
+    - options table (see src/lua/compat.lua:options_format; default may also be
+      'new'/'old')
+    - postaction function (arg - boolean as if behavior is on or off, changes the
+      behavior accordingly)
+
+   .. code-block:: tarantoolsession
+
+        tarantool> c.add_options{{'option_1',
+                                  {
+                                     old = true,
+                                     new = false,
+                                     default = false,
+                                     frozen = false,
+                                     brief = "This is a brief message explaining why the option is here and what it changes.",
+                                     doc = "This is a link to Tarantool wiki page with more details."
+                                  },
+                                  function() print("option_1 postaction was called!") end}}
+        option_1 postaction was called!
+        ---
+        ...
+
+   Note that postaction of a new option is called with its defaults right after
+   it is added (before the next one in the list).
+
+#. To add option to compat src directly, add table with option description (same
+   as for add_options()) and function to postaction table. Every build-in option
+   must have a Tarantool wiki page with detailed description, list of
+   compatibility problems and some tips on detecting problems in codebase.
+   For example, see json_escape_forward_slash patch (gh-6200).
+
+#. Make sure to set up compat if needed at the very beginning of a
+   program or module, right after the require calls.
