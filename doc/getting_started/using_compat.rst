@@ -137,7 +137,7 @@ controlled by compat:
         ---
         ...
 
-        tarantool> compat.dump()
+        tarantool> compat.get_setup()
         ---
         - require('tarantool').compat({json_escape_forward_slash = false, option_2 = true})
         ...
